@@ -1,0 +1,50 @@
+@import "tailwindcss";
+
+@theme inline {
+  --color-background: #F5F5F5;
+  --color-foreground: #282828;
+  --color-card: #FFFFFF;
+  --color-card-foreground: #282828;
+  --color-secondary-bg: #EDEDED;
+  --color-muted: #75757A;
+  --color-muted-foreground: #4A4A4A;
+  
+  /* Jumia Orange */
+  --color-primary: #f68b1e;
+  --color-primary-hover: #e07b1a;
+  --color-primary-foreground: #FFFFFF;
+  
+  /* Status Colors */
+  --color-success: #388e3c;
+  --color-warning: #f57c00;
+  --color-error: #d32f2f;
+
+  --font-sans: 'Roboto', 'Inter', sans-serif;
+  
+  --radius-card: 4px;
+  --radius-btn: 4px;
+}
+
+body {
+  background-color: var(--color-background);
+  color: var(--color-foreground);
+  font-family: var(--font-sans);
+}
+
+@layer components {
+  .btn-primary {
+    @apply bg-primary text-primary-foreground font-semibold rounded-[var(--radius-btn)] px-4 py-2 transition-colors hover:bg-[var(--color-primary-hover)] shadow-sm;
+  }
+
+  .btn-secondary {
+    @apply bg-white text-foreground font-semibold rounded-[var(--radius-btn)] px-4 py-2 border border-gray-300 hover:bg-gray-50 transition-colors shadow-sm;
+  }
+
+  .card-standard {
+    @apply bg-card rounded-[var(--radius-card)] shadow-sm p-4 hover:shadow-md transition-shadow;
+  }
+
+  .input-standard {
+    @apply bg-white border border-gray-300 rounded-[var(--radius-btn)] px-3 py-2 text-foreground placeholder:text-muted focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary transition-all;
+  }
+}
