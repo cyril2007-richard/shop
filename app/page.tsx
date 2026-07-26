@@ -49,6 +49,7 @@ export default function Home() {
   const [products, setProducts] = useState<Product[]>([]);
   const [categories, setCategories] = useState<Category[]>([]);
   const [activeCategory, setActiveCategory] = useState<string | null>(null);
+  const [isMobileCategoryOpen, setIsMobileCategoryOpen] = useState(false);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -121,20 +122,39 @@ export default function Home() {
         {/* Categories Sidebar (Jumia Style) */}
         <aside className="w-full md:w-64 flex-shrink-0">
           <div className="bg-white rounded shadow-sm overflow-hidden border border-gray-100">
-            <h3 className="px-4 py-3 bg-gray-50 border-b font-bold text-foreground flex items-center gap-2 text-sm uppercase">
+            
+            {/* Desktop Header */}
+            <h3 className="hidden md:flex px-4 py-3 bg-gray-50 border-b font-bold text-foreground items-center gap-2 text-sm uppercase">
               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
               Categories
             </h3>
-            <ul className="text-sm">
+
+            {/* Mobile Dropdown Toggle */}
+            <button 
+              onClick={() => setIsMobileCategoryOpen(!isMobileCategoryOpen)}
+              className="w-full flex md:hidden px-4 py-3 bg-gray-50 border-b font-bold text-foreground items-center justify-between text-sm uppercase"
+            >
+              <div className="flex items-center gap-2">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
+                {activeCategory ? categories.find(c => c.id === activeCategory)?.name : "All Products"}
+              </div>
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={`transform transition-transform ${isMobileCategoryOpen ? "rotate-180" : ""}`}><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+
+            {/* Category List */}
+            <ul className={`text-sm flex-col ${isMobileCategoryOpen ? "flex" : "hidden"} md:flex`}>
               <li 
-                onClick={() => setActiveCategory(null)}
+                onClick={() => {
+                  setActiveCategory(null);
+                  setIsMobileCategoryOpen(false);
+                }}
                 className={`cursor-pointer px-4 py-3 flex items-center gap-3 transition-colors ${
                   activeCategory === null 
                     ? "bg-orange-50 text-primary font-semibold border-l-4 border-primary" 
                     : "text-foreground hover:text-primary hover:bg-gray-50 border-l-4 border-transparent"
                 }`}
               >
-                <Globe size={16} />
+                <Globe size={16} className="flex-shrink-0" />
                 <span>All Products</span>
               </li>
               
@@ -142,14 +162,17 @@ export default function Home() {
                 categories.map((cat) => (
                   <li 
                     key={cat.id} 
-                    onClick={() => setActiveCategory(cat.id)}
+                    onClick={() => {
+                      setActiveCategory(cat.id);
+                      setIsMobileCategoryOpen(false);
+                    }}
                     className={`cursor-pointer px-4 py-3 flex items-center gap-3 transition-colors ${
                       activeCategory === cat.id 
                         ? "bg-orange-50 text-primary font-semibold border-l-4 border-primary" 
                         : "text-foreground hover:text-primary hover:bg-gray-50 border-l-4 border-transparent"
                     }`}
                   >
-                    {getCategoryIcon(cat.name)}
+                    <div className="flex-shrink-0">{getCategoryIcon(cat.name)}</div>
                     <span>{cat.name}</span>
                   </li>
                 ))

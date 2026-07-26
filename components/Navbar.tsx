@@ -10,43 +10,43 @@ export function Navbar() {
 
   return (
     <nav className="bg-white sticky top-0 z-50 shadow-sm border-b border-gray-200">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-20 gap-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 md:py-0">
+        <div className="flex flex-wrap md:flex-nowrap justify-between items-center md:h-20 gap-3 md:gap-8">
           
           {/* Logo */}
-          <div className="flex-shrink-0 flex items-center">
-            <Link href="/" className="text-3xl font-extrabold text-primary tracking-tight">
+          <div className="flex-shrink-0 flex items-center order-1">
+            <Link href="/" className="text-2xl md:text-3xl font-extrabold text-primary tracking-tight">
               Unimart
             </Link>
           </div>
           
           {/* Search Bar (Jumia Style) */}
-          <div className="flex-1 max-w-2xl hidden md:flex">
+          <div className="w-full md:flex-1 max-w-2xl flex order-3 md:order-2 mt-2 md:mt-0">
             <div className="relative w-full flex">
               <input
                 type="text"
                 placeholder="Search products, brands and categories"
-                className="w-full border border-gray-400 rounded-l-md px-4 py-2.5 focus:outline-none focus:border-primary text-foreground placeholder:text-gray-500"
+                className="w-full border border-gray-400 rounded-l-md px-4 py-2.5 focus:outline-none focus:border-primary text-foreground placeholder:text-gray-500 text-sm md:text-base"
               />
-              <button className="bg-primary hover:bg-primary-hover text-white px-6 font-semibold rounded-r-md transition-colors shadow-sm">
+              <button className="bg-primary hover:bg-primary-hover text-white px-4 md:px-6 font-semibold rounded-r-md transition-colors shadow-sm text-sm md:text-base">
                 SEARCH
               </button>
             </div>
           </div>
 
           {/* Right Links */}
-          <div className="flex items-center space-x-6">
+          <div className="flex items-center space-x-4 md:space-x-6 order-2 md:order-3 ml-auto md:ml-0">
             
             {/* Account / Login */}
             {user ? (
-              <div className="flex items-center space-x-6">
+              <div className="flex items-center space-x-4 md:space-x-6">
                 <Link href="/orders" className="flex items-center space-x-1 text-foreground hover:text-primary transition-colors font-bold text-sm">
                   <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 8v13H3V8"/><path d="M1 3h22v5H1z"/><path d="M10 12h4"/></svg>
-                  <span>Orders</span>
+                  <span className="hidden md:inline">Orders</span>
                 </Link>
-                <div className="flex items-center space-x-4 cursor-pointer hover:text-primary transition-colors">
-                  <div className="flex flex-col">
-                    <span className="text-xs text-muted-foreground font-semibold">Hi, {user.name}</span>
+                <div className="flex items-center space-x-2 md:space-x-4 cursor-pointer hover:text-primary transition-colors">
+                  <div className="flex flex-col items-end md:items-start">
+                    <span className="text-xs text-muted-foreground font-semibold hidden md:block">Hi, {user.name}</span>
                     <button onClick={logout} className="text-sm font-bold text-foreground text-left hover:text-primary">
                       Logout
                     </button>
@@ -56,7 +56,7 @@ export function Navbar() {
             ) : (
               <Link href="/login" className="flex items-center space-x-2 text-foreground hover:text-primary transition-colors font-bold text-sm">
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-                <span>Login</span>
+                <span className="hidden md:inline">Login</span>
               </Link>
             )}
 
@@ -70,7 +70,7 @@ export function Navbar() {
                   </span>
                 )}
               </div>
-              <span>Cart</span>
+              <span className="hidden md:inline">Cart</span>
             </Link>
           </div>
         </div>
